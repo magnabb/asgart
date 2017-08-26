@@ -1,11 +1,7 @@
 <?php
-$method = $_SERVER['REQUEST_METHOD'];
-//Script Foreach
-$c = true;
+include __DIR__. '/PHPMailer/PHPMailerAutoload.php';
 
-$project_name = 'Asgart';
-$admin_email  = 'baz.production@gmail.com';
-$form_subject = 'Feedback from asgart.eu';
+$method = $_SERVER['REQUEST_METHOD'];
 $data = null;
 
 if ( $method === 'POST' ) {
@@ -13,27 +9,39 @@ if ( $method === 'POST' ) {
 } else if ( $method === 'GET' ) {
     $data = $_GET;
 }
-
 if($data == null) die;
 
-foreach ( $data as $key => $value ) {
-    if ( $value != "" ) {
-        $message .= "
-        " . ( ($c = !$c) ? '<tr>':'<tr style="background-color: #f8f8f8;">' ) . "
-            <td style='padding: 10px; border: #e9e9e9 1px solid;'><b>$key</b></td>
-            <td style='padding: 10px; border: #e9e9e9 1px solid;'>$value</td>
-        </tr>
-        ";
-    }
-}
+$mail = new PHPMailer;
 
-$message = "<table style='width: 100%;'>$message</table>";
-function adopt($text) {
-    return '=?UTF-8?B?'.Base64_encode($text).'?=';
-}
-$headers = "MIME-Version: 1.0" . PHP_EOL .
-    "Content-Type: text/html; charset=utf-8" . PHP_EOL .
-    'From: '.adopt($project_name).' <'.$admin_email.'>' . PHP_EOL .
-    'Reply-To: '.$admin_email.'' . PHP_EOL;
+$adminEmail = 'oleksandr.bazylevych@gmail.com';
+$adminName = 'Alex';
 
-mail($admin_email, adopt($form_subject), $message, $headers );
+$mail->SMTPDebug = 3;                               // Enable verbose debug output
+
+$mail->isSMTP();                                      // Set mailer to use SMTP
+$mail->Host = 'smtp.mailtrap.io';  // Specify main and backup SMTP servers
+$mail->SMTPAuth = true;                               // Enable SMTP authentication
+$mail->Username = 'ea22e837aa48f0';                 // SMTP username
+$mail->Password = 'c5293de333fafe';                           // SMTP password
+//$mail->SMTPSecure = 'tls';                            // Enable TLS encryption, `ssl` also accepted
+//$mail->Port = 587;                                    // TCP port to connect to
+$mail->Port = 2525;                                    // TCP port to connect to
+
+
+
+$mail->setFrom($data['email'], $data['name']);
+$mail->addAddress($adminEmail, $adminName);
+$mail->addReplyTo($data['email']);
+
+$mail->isHTML(true);
+
+$mail->Subject = 'Feedback from asgart.eu';
+$mail->Body    = $data['message'] . ' <br><br><a href="tel: '.$data['phone'].'">'.$data['phone'].'</a>';
+$mail->AltBody = $data['message'] .' Phone number: '. $data['phone'];
+
+if(!$mail->send()) {
+    echo 'Message could not be sent.';
+    echo 'Mailer Error: ' . $mail->ErrorInfo;
+} else {
+    echo 'Message has been sent';
+}
