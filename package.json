@@ -25,6 +25,8 @@
     "vinyl-ftp": "^0.6.0"
   },
   "dependencies": {
-    "ubuntu-fontface": "^0.1.13"
+    "sass-rem": "^2.0.0",
+    "ubuntu-fontface": "^0.1.13",
+    "zenscroll": "^4.0.0"
   }
 }

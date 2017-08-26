@@ -1,5 +1,6 @@
 $(function () {
 
+
     $('#t').t({
         speed: 70,
         blink: 400,
@@ -124,4 +125,28 @@ $(function () {
         // }
     });
 
+    SmoothScroll({
+        pulseAlgorithm   : true,
+        pulseScale       : 4,
+        pulseNormalize   : 1,
+    });
+
+    zenscroll.setup(700, 10)
+
+
+    $("form").submit(function() { //Change
+        var th = $(this);
+        $.ajax({
+            type: "GET",
+            url: "mail.php", //Change
+            data: th.serialize()
+        }).done(function() {
+            alert("Thank you!");
+            setTimeout(function() {
+                // Done Functions
+                th.trigger("reset");
+            }, 1000);
+        });
+        return false;
+    });
 });

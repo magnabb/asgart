@@ -1,6 +1,7 @@
 @import "fonts"
 @import "libs"
 @import "vars"
+@import "../../node_modules/sass-rem/rem"
 
 *
 	-webkit-box-sizing: border-box
@@ -11,31 +12,23 @@
 		-moz-box-sizing: border-box
 		box-sizing: border-box
 
-*::-webkit-input-placeholder
-	color: #666
-	opacity: 1
-
-*:-moz-placeholder
-	color: #666
-	opacity: 1
-
-*::-moz-placeholder
-	color: #666
-	opacity: 1
-
+*::-webkit-input-placeholder,
+*:-moz-placeholder,
+*::-moz-placeholder,
 *:-ms-input-placeholder
-	color: #666
+	color: $formTextColor
 	opacity: 1
 
 body input:focus:required:invalid,
-body textarea:focus:required:invalid
-	color: #666
+body textarea:focus:required:invalid,
 body input:required:valid,
 body textarea:required:valid
-	color: #666
+	color: $formTextColor
 
 html, body
 	height: 100%
+	@include rem-baseline
+	scroll-behavior: smooth /* Smooth scroll setup */
 
 body
 	font-size: 16px
@@ -46,10 +39,98 @@ body
 	overflow-x: hidden
 	opacity: 1
 
+.indent
+	padding: 130px 0 0
+
 .img-responsive
 	display: block
 	max-width: 100%
 	height: auto
 
+@for $i from 1 through 4
+  h#{$i}
+	  font-family: 'Ubuntu Monospace', monospace
+
+h1,h2,h3
+	font-weight: bold
+
+h2
+	font-size: rem(50px)
+h3
+	font-size: rem(32px)
+h5
+	font-size: rem(22px)
+	color: #666
+	margin: auto auto 30px
+
+.text-center
+	text-align: center
+
+p
+	font-size: rem(22px)
+
+.image-container
+	width: 100%
+	height: 160px
+	img
+		display: block
+		margin: 0 auto
+		height: 100%
+		vertical-align: middle
+
+#contact-us-container
+	margin-bottom: 35px
+	width: 100%
+
+#contacts-block
+	position: relative
+	height: 140px
+	.contact-us
+		position: absolute
+		bottom: 0
+		left: 0
+		a
+			color: #000
+			display: block
+			text-decoration: none
+			font-size: rem(22px)
+			&:hover,
+			&:active
+				color: #000
+				text-decoration: none
+	.follow-us
+		position: absolute
+		bottom: 0
+		right: 0
+		text-align: right
+.social
+	margin-left: 30px
+
+form
+	margin-bottom: 55px
+input, textarea
+	border: none
+	outline: none
+	background-color: #ebebeb
+	padding: 10px 15px
+	color: $formTextColor
+	font-size: rem(20px)
+	width: 100%
+	margin: 15px 0
+	border-radius: $borderRadius
+
+textarea
+	resize: none
+
+.clearfix::after
+	content: ""
+	clear: both
+	display: table
+
+
+
+
 @import "particles"
-@import "media" // Всегда в конце
+@import "buttons"
+
+@import "media" // Always last

@@ -19,7 +19,7 @@ gulp.task('common-js', function() {
 		'app/js/common.js',
 		])
 	.pipe(concat('common.min.js'))
-	.pipe(uglify())
+	// .pipe(uglify())
 	.pipe(gulp.dest('app/js'));
 });
 
@@ -28,10 +28,12 @@ gulp.task('js', ['common-js'], function() {
 		'app/libs/jquery/dist/jquery.min.js',
         'app/js/libs/t.js',
 		'app/libs/particles.js/particles.min.js',
+		'app/libs/smoothscroll-for-websites/SmoothScroll.js', // https://github.com/galambalazs/smoothscroll-for-websites
+		'node_modules/zenscroll/zenscroll-min.js', // https://zengabor.github.io/zenscroll/
 		'app/js/common.min.js', // Always last
 		])
 	.pipe(concat('scripts.min.js'))
-	.pipe(uglify()) // Minimize all js
+	// .pipe(uglify()) // Minimize all js
 	.pipe(gulp.dest('app/js'))
 	.pipe(browserSync.reload({stream: true}));
 });
@@ -52,7 +54,7 @@ gulp.task('sass', function() {
 	.pipe(sass({outputStyle: 'expand'}).on("error", notify.onError()))
 	.pipe(rename({suffix: '.min', prefix : ''}))
 	.pipe(autoprefixer(['last 15 versions']))
-	.pipe(cleanCSS()) // Comment to debug
+	// .pipe(cleanCSS()) // Comment to debug
 	.pipe(gulp.dest('app/css'))
 	.pipe(browserSync.reload({stream: true}));
 });
@@ -74,6 +76,7 @@ gulp.task('build', ['removedist', 'imagemin', 'sass', 'js'], function() {
 	var buildFiles = gulp.src([
 		'app/*.html',
 		'app/.htaccess',
+		'app/*.php',
 		]).pipe(gulp.dest('dist'));
 
 	var buildCss = gulp.src([
