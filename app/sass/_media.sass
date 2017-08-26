@@ -19,8 +19,53 @@
 
 /* Extra Small Devices, Phones */
 @media only screen and (max-width : 480px)
-	/**/
+    h5
+        font-size: rem(32px)
+        margin: auto auto 15px
 
+    #t
+        padding: 8% 0
+        margin: 0
+    .social
+        margin-left: 15px
+        margin-right: 15px
+    #contacts-block
+        height: auto
+        text-align: center
+        .contact-us
+            position: inherit
+            a
+                font-size: rem(28px)
+                margin-bottom: 10px
+        .follow-us
+            text-align: center
+            margin-top: 15px
+            //text-align: left
+            position: inherit
+    .div-left img
+        height: 40px
+    .indent
+        padding-top: 60px
+    h3
+        font-size: rem(36px)
+    p
+        font-size: rem(25px)
+    #contact-us-form
+        $fsz: 25px
+        input,
+        textarea
+            font-size: rem($fsz)
+            margin: 0 0 15px
+        button
+            font-size: rem($fsz)
+            display: block
+            width: 100%
+
+    $mobileHeight: 110vh
+    #particles-js-container
+        height: $mobileHeight
+        #particles-js
+            height: $mobileHeight
 
 /* Custom, iPhone Retina */
 @media only screen and (max-width : 320px)

@@ -34,7 +34,7 @@
         a
             font-family: $default-font
             font-weight: bold
-            font-size: 14pt
+            font-size: rem(19px)
             color: $mainColor
             text-decoration: none
 
@@ -50,7 +50,7 @@
         font-family: 'Ubuntu Monospace', monospace
         font-weight: bold
         color: #272727
-        font-size: 40pt
+        font-size: rem(54px)
 
     kbd
         font-family: 'Ubuntu Monospace', monospace
@@ -58,8 +58,13 @@
     #button-div
         display: flex
         justify-content: center
+        //display: inline-block
+        //margin: 0 auto
 
     canvas
         position: absolute
         top: 0
+        left: 0
+        right: 0
+        bottom: 0
         z-index: -1
