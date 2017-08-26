@@ -1,12 +1,25 @@
 $(function () {
 
-
     $('#t').t({
         speed: 70,
         blink: 400,
         mistype: 20
     });
 
+    particles();
+
+    SmoothScroll({
+        pulseAlgorithm   : true,
+        pulseScale       : 4,
+        pulseNormalize   : 1,
+    });
+
+    zenscroll.setup(700, 10);
+
+    formEvent();
+});
+
+function particles() {
     var config = {
         "particles": {
             "number": {
@@ -29,7 +42,7 @@ $(function () {
                     "nb_sides": 5
                 },
                 "image": {
-                    "src": "img/bulb.svg",
+                    "src": "img/bulb.png",
                     "width": 500,
                     "height": 750
                 }
@@ -103,7 +116,7 @@ $(function () {
                     "speed": 3
                 },
                 "repulse": {
-                    "distance": 200
+                    "distance": 100
                 },
                 "push": {
                     "particles_nb": 4
@@ -116,30 +129,22 @@ $(function () {
         "retina_detect": true,
     };
 
-    if(window.matchMedia("(min-width: 500px)")) {
-        // todo: fix image issue on iphone (image not showing)
+    var mq = window.matchMedia( "(max-width: 480px)" );
+    if(mq.matches) {
         config.particles.number.value = 30;
         config.particles.number.density.value_area = 400;
-        config.particles.shape.image.width = 40;
-        config.particles.shape.image.height = 50;
-        config.particles.opacity.random = false;
+        config.particles.size.value = 15;
     }
+
     particlesJS('particles-js', config);
+}
 
-    SmoothScroll({
-        pulseAlgorithm   : true,
-        pulseScale       : 4,
-        pulseNormalize   : 1,
-    });
-
-    zenscroll.setup(700, 10)
-
-
-    $("form").submit(function() { //Change
+function formEvent() {
+    $("form").submit(function() {
         var th = $(this);
         $.ajax({
-            type: "GET",
-            url: "mail.php", //Change
+            type: "POST",
+            url: "mail.php",
             data: th.serialize()
         }).done(function() {
             alert("Thank you!");
@@ -150,4 +155,4 @@ $(function () {
         });
         return false;
     });
-});
+}

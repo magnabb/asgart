@@ -19,7 +19,7 @@ gulp.task('common-js', function() {
 		'app/js/common.js',
 		])
 	.pipe(concat('common.min.js'))
-	// .pipe(uglify())
+	.pipe(uglify()).on('error', function (err) { gutil.log(gutil.colors.red('[Error]'), err.toString()); })
 	.pipe(gulp.dest('app/js'));
 });
 
@@ -33,7 +33,7 @@ gulp.task('js', ['common-js'], function() {
 		'app/js/common.min.js', // Always last
 		])
 	.pipe(concat('scripts.min.js'))
-	// .pipe(uglify()) // Minimize all js
+	.pipe(uglify()).on('error', function (err) { gutil.log(gutil.colors.red('[Error]'), err.toString()); })
 	.pipe(gulp.dest('app/js'))
 	.pipe(browserSync.reload({stream: true}));
 });
@@ -54,7 +54,7 @@ gulp.task('sass', function() {
 	.pipe(sass({outputStyle: 'expand'}).on("error", notify.onError()))
 	.pipe(rename({suffix: '.min', prefix : ''}))
 	.pipe(autoprefixer(['last 15 versions']))
-	// .pipe(cleanCSS()) // Comment to debug
+	.pipe(cleanCSS()) // Comment to debug
 	.pipe(gulp.dest('app/css'))
 	.pipe(browserSync.reload({stream: true}));
 });
