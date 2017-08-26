@@ -19,9 +19,17 @@
 
 /* Extra Small Devices, Phones */
 @media only screen and (max-width : 480px)
+    html, body
+        @include rem-baseline(10px)
+    h2
+        font-size: rem(60px)
+    h3
+        font-size: rem(36px)
     h5
-        font-size: rem(32px)
+        font-size: rem(36px)
         margin: auto auto 15px
+    p
+        font-size: rem(25px)
 
     #t
         padding: 8% 0
@@ -44,12 +52,23 @@
             position: inherit
     .div-left img
         height: 40px
+        //display: inline-block
+        //width: 50%
+        //min-height: 1px
+        //padding-left: 15px
+        //padding-right: 15px
+        //float: left
+        //position: relative
+    .div-right
+        //position: relative
+        //display: inline-block
+        //width: 50%
+        //min-height: 1px
+        //padding-left: 15px
+        //padding-right: 15px
+        //float: left
     .indent
         padding-top: 60px
-    h3
-        font-size: rem(36px)
-    p
-        font-size: rem(25px)
     #contact-us-form
         $fsz: 25px
         input,
@@ -66,7 +85,8 @@
         height: $mobileHeight
         #particles-js
             height: $mobileHeight
-
+        .footer a
+            //font-size: rem(10px)
 /* Custom, iPhone Retina */
 @media only screen and (max-width : 320px)
 	/**/
