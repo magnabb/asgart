@@ -140,19 +140,33 @@ function particles() {
 }
 
 function formEvent() {
-    $("form").submit(function() {
+    $("form").submit(function(e) {
+        e.preventDefault();
         var th = $(this);
         $.ajax({
             type: "POST",
             url: "mail.php",
             data: th.serialize()
-        }).done(function() {
-            alert("Thank you!");
-            setTimeout(function() {
-                // Done Functions
-                th.trigger("reset");
-            }, 1000);
-        });
-        return false;
+        })
+            .done(function() {
+                swal({
+                    title: "Thank you!",
+                    text: 'This is additional info.',
+                    type: 'success',
+                    allowOutsideClick: true
+                });
+                setTimeout(function() {
+                    // Done Functions
+                    th.trigger("reset");
+                }, 1000);
+            })
+            .fail(function() {
+                swal({
+                    title: "Oops!",
+                    text: "Something went wrong. Please try later.",
+                    type: 'error',
+                    allowOutsideClick: true
+                })
+            });
     });
 }

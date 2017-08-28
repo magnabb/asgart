@@ -30,6 +30,7 @@ gulp.task('js', ['common-js'], function() {
 		'app/libs/particles.js/particles.min.js',
 		'app/libs/smoothscroll-for-websites/SmoothScroll.js', // https://github.com/galambalazs/smoothscroll-for-websites
 		'node_modules/zenscroll/zenscroll-min.js', // https://zengabor.github.io/zenscroll/
+		'node_modules/sweetalert/dist/sweetalert.min.js', // http://t4t5.github.io/sweetalert/
 		'app/js/common.min.js', // Always last
 		])
 	.pipe(concat('scripts.min.js'))
