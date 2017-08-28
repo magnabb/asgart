@@ -1,12 +1,11 @@
 .btn,
 button
-    //height: 50px
-    //width: 150PX
     text-decoration: none
     background: #ffffff
     font-size: rem(25px)
     line-height: rem(25px)
     font-family: $default-font
+    padding: 15px 35px
     &:hover
         text-decoration: none
 
@@ -38,7 +37,6 @@ button
     width: 0
 
 [class*="ctrl-"]
-    padding: 15px 35px
     border-radius: $borderRadius
     border: 2px solid $mainColor
     &[class*="fx-"]:hover,
@@ -68,3 +66,30 @@ button
         font-size: rem(20px)
         line-height: rem(20px)
         float: right
+
+// Slide without background whitespace
+.slide
+    border-radius: $borderRadius
+    display: inline-block
+    background: none
+    color: white
+    position: relative
+    transition: color .2s ease-in-out .2s
+    border: 2px solid $mainColor
+    z-index: 2
+    &:hover
+        text-decoration: none
+        color: $mainColor
+    &::after
+        position: absolute
+        content: ''
+        top: 0
+        left: 0
+        width: 100%
+        height: 100%
+        background-color: $mainColor
+        transform-origin: right
+        transition: width .3s ease-in-out
+        z-index: -1
+    &:hover::after
+        width: 0
