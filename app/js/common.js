@@ -142,6 +142,10 @@ function particles() {
 function formEvent() {
     $("form").submit(function(e) {
         e.preventDefault();
+
+        swal('Please wait')
+        swal.showLoading()
+
         var th = $(this);
         $.ajax({
             type: "POST",

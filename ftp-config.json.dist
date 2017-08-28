@@ -1,0 +1,7 @@
+{
+		"host":      "hostname.com",
+		"user":      "username",
+		"password":  "userpassword",
+		"parallel":  10,
+		"log":       "gutil.log"
+}

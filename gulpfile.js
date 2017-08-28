@@ -30,7 +30,7 @@ gulp.task('js', ['common-js'], function() {
 		'app/libs/particles.js/particles.min.js',
 		'app/libs/smoothscroll-for-websites/SmoothScroll.js', // https://github.com/galambalazs/smoothscroll-for-websites
 		'node_modules/zenscroll/zenscroll-min.js', // https://zengabor.github.io/zenscroll/
-		'node_modules/sweetalert/dist/sweetalert.min.js', // http://t4t5.github.io/sweetalert/
+		'node_modules/sweetalert2/dist/sweetalert2.min.js', // http://t4t5.github.io/sweetalert/
 		'app/js/common.min.js', // Always last
 		])
 	.pipe(concat('scripts.min.js'))
@@ -92,24 +92,29 @@ gulp.task('build', ['removedist', 'imagemin', 'sass', 'js'], function() {
 		'app/fonts/**/*',
 		]).pipe(gulp.dest('dist/fonts'));
 
+    var buildSymlinks = gulp.src('PHPMailer')
+        .pipe(gulp.dest('dist', {
+            symlink: 'PHPMailer' // or 'absolute'
+        }));
+
 });
 
-gulp.task('deploy', function() {
+gulp.task('deploy', ['build'], function() {
 
-	var conn = ftp.create({
-		host:      'hostname.com',
-		user:      'username',
-		password:  'userpassword',
-		parallel:  10,
-		log: gutil.log
-	});
+    // var cleanJSON = require("strip-json-comments");
+    // var config = fs.readFileSync("./ftp-config.json", "utf8");
+    // config = JSON.parse(cleanJSON(config));
+    var config = require('./ftp-config.json');
+
+	var conn = ftp.create(config);
 
 	var globs = [
 	'dist/**',
 	'dist/.htaccess',
+	'PHPMailer'
 	];
 	return gulp.src(globs, {buffer: false})
-	.pipe(conn.dest('/path/to/folder/on/server'));
+	.pipe(conn.dest('/var/www/html'));
 
 });
 
