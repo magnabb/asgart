@@ -99,12 +99,9 @@ gulp.task('build', ['removedist', 'imagemin', 'sass', 'js'], function() {
 
 });
 
-gulp.task('deploy', ['build'], function() {
-
-    // var cleanJSON = require("strip-json-comments");
-    // var config = fs.readFileSync("./ftp-config.json", "utf8");
-    // config = JSON.parse(cleanJSON(config));
-    var config = require('./ftp-config.json');
+gulp.task('deploy', function() {
+    var fs = require('fs');
+    var config = JSON.parse(fs.readFileSync('./ftp-config.json'));
 
 	var conn = ftp.create(config);
 

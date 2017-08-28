@@ -11,23 +11,19 @@ if ( $method === 'POST' ) {
 }
 if($data == null) die;
 
-$mail = new PHPMailer;
-
 $adminEmail = 'oleksandr.bazylevych@gmail.com';
 $adminName = 'Alex';
 
-$mail->SMTPDebug = 3;                               // Enable verbose debug output
-
+$mail = new PHPMailer;
+$mail->SMTPDebug = 0;                               // Enable verbose debug output
 $mail->isSMTP();                                      // Set mailer to use SMTP
 $mail->Host = 'smtp.mailtrap.io';  // Specify main and backup SMTP servers
 $mail->SMTPAuth = true;                               // Enable SMTP authentication
 $mail->Username = 'ea22e837aa48f0';                 // SMTP username
 $mail->Password = 'c5293de333fafe';                           // SMTP password
 //$mail->SMTPSecure = 'tls';                            // Enable TLS encryption, `ssl` also accepted
-//$mail->Port = 587;                                    // TCP port to connect to
 $mail->Port = 2525;                                    // TCP port to connect to
-
-
+$mail->CharSet = 'UTF-8';
 
 $mail->setFrom($data['email'], $data['name']);
 $mail->addAddress($adminEmail, $adminName);
