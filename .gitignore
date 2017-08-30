@@ -8,3 +8,6 @@
 /**/*.DS_Store
 .idea/
 ftp-config.json
+app/config.php
+app/config-dev.php
+app/config-prod.php

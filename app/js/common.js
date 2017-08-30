@@ -19,6 +19,31 @@ $(function () {
     formEvent();
 });
 
+$(document).ready(function(){
+
+    // hide our element on page load
+    $('.animated').css('opacity', 0);
+    var offset = '80%';
+
+    var id1 = 'animate-fadeIn-left';
+    new Waypoint({
+        element:  document.getElementById(id1),
+        handler: function() {
+            $('#' + id1).addClass('bounceInLeft').css('opacity', 1);
+        },
+        offset: offset
+    });
+    var id2 = 'animate-fadeIn-right';
+    new Waypoint({
+        element:  document.getElementById(id2),
+        handler: function() {
+            $('#' + id2).addClass('bounceInRight').css('opacity', 1);
+        },
+        offset: offset
+    });
+
+});
+
 function particles() {
     var config = {
         "particles": {

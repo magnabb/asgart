@@ -1,0 +1,10 @@
+<?php
+return [
+    'adminEmail' => '',
+    'adminName' => '',
+
+    'host' => 'smtp.mailtrap.io',
+    'username' => '',
+    'password' => '',
+    'port' => 2525,
+];

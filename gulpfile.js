@@ -12,7 +12,8 @@ var gulp           = require('gulp'),
 	autoprefixer   = require('gulp-autoprefixer'),
 	ftp            = require('vinyl-ftp'),
 	notify         = require("gulp-notify"),
-	rsync          = require('gulp-rsync');
+	rsync          = require('gulp-rsync')
+    options        = require('gulp-options');
 
 gulp.task('common-js', function() {
 	return gulp.src([
@@ -31,10 +32,11 @@ gulp.task('js', ['common-js'], function() {
 		'app/libs/smoothscroll-for-websites/SmoothScroll.js', // https://github.com/galambalazs/smoothscroll-for-websites
 		'node_modules/zenscroll/zenscroll-min.js', // https://zengabor.github.io/zenscroll/
 		'node_modules/sweetalert2/dist/sweetalert2.min.js', // http://t4t5.github.io/sweetalert/
+		'node_modules/waypoints/lib/noframework.waypoints.min.js', // http://imakewebthings.com/waypoints/
 		'app/js/common.min.js', // Always last
 		])
 	.pipe(concat('scripts.min.js'))
-	.pipe(uglify()).on('error', function (err) { gutil.log(gutil.colors.red('[Error]'), err.toString()); })
+	// .pipe(uglify()).on('error', function (err) { gutil.log(gutil.colors.red('[Error]'), err.toString()); })
 	.pipe(gulp.dest('app/js'))
 	.pipe(browserSync.reload({stream: true}));
 });
@@ -77,8 +79,13 @@ gulp.task('build', ['removedist', 'imagemin', 'sass', 'js'], function() {
 	var buildFiles = gulp.src([
 		'app/*.html',
 		'app/.htaccess',
-		'app/*.php',
+		'app/mail.php',
 		]).pipe(gulp.dest('dist'));
+
+	var suffix = options.has('prod') ? 'prod' : 'dev';
+	var buildConfig = gulp.src('app/config-'+suffix+'.php')
+		.pipe(rename('config.php'))
+		.pipe(gulp.dest('dist'));
 
 	var buildCss = gulp.src([
 		'app/css/main.min.css',
@@ -102,17 +109,19 @@ gulp.task('build', ['removedist', 'imagemin', 'sass', 'js'], function() {
 gulp.task('deploy', function() {
     var fs = require('fs');
     var config = JSON.parse(fs.readFileSync('./ftp-config.json'));
+    var remoteFolder = '/var/www/html';
 
 	var conn = ftp.create(config);
 
 	var globs = [
-	'dist/**',
-	'dist/.htaccess',
-	'PHPMailer'
+		'dist/**',
+		'dist/.htaccess',
+		'PHPMailer'
 	];
-	return gulp.src(globs, {buffer: false})
-	.pipe(conn.dest('/var/www/html'));
 
+	return gulp.src(globs, {buffer: false})
+        .pipe(conn.newer(remoteFolder))
+		.pipe(conn.dest(remoteFolder));
 });
 
 gulp.task('rsync', function() {

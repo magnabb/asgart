@@ -25,10 +25,13 @@
     "vinyl-ftp": "^0.6.0"
   },
   "dependencies": {
+    "animate.css": "^3.5.2",
+    "gulp-options": "^1.1.1",
     "gulp-symlink": "^2.1.4",
     "sass-rem": "^2.0.0",
     "sweetalert2": "^6.6.9",
     "ubuntu-fontface": "^0.1.13",
+    "waypoints": "^4.0.1",
     "zenscroll": "^4.0.0"
   }
 }
